@@ -1,6 +1,7 @@
-const configuredBase = window.ATTENDLY_API_BASE_URL ?? document.querySelector('meta[name="attendly-api-base"]')?.content ?? '';
-const configuredUrl = configuredBase ? new URL(configuredBase, window.location.href) : null;
 const loopbackHosts = new Set(['localhost', '127.0.0.1']);
+const localDefault = loopbackHosts.has(window.location.hostname) ? `${window.location.protocol}//${window.location.hostname}:4000` : '';
+const configuredBase = window.ATTENDLY_API_BASE_URL || document.querySelector('meta[name="attendly-api-base"]')?.content || localDefault;
+const configuredUrl = configuredBase ? new URL(configuredBase, window.location.href) : null;
 if (configuredUrl && loopbackHosts.has(configuredUrl.hostname) && loopbackHosts.has(window.location.hostname)) configuredUrl.hostname = window.location.hostname;
 const API_BASE_URL = configuredUrl ? configuredUrl.origin.replace(/\/$/, '') : '';
 let unauthorizedNotified = false;
