@@ -1,0 +1,12 @@
+<div id="login-view" class="auth-page">
+  <section class="auth-panel" aria-labelledby="login-title">
+    <div class="brand brand-login"><img class="brand-logo" src="assets/attendly-logo.svg" alt=""><span>Attendly</span></div>
+    <div class="auth-heading"><span class="eyebrow">National University</span><h1 id="login-title">Welcome back</h1><p>Sign in to manage your class attendance.</p></div>
+    <form id="login-form" novalidate>
+      <label for="email">Email address</label><div class="input-wrap"><i data-lucide="mail"></i><input id="email" type="email" autocomplete="username" placeholder="name@example.edu"></div><p class="field-error" id="email-error"></p>
+      <label for="password">Password</label><div class="input-wrap"><i data-lucide="lock-keyhole"></i><input id="password" type="password" autocomplete="current-password" placeholder="Enter your password"><button type="button" id="toggle-password" class="icon-button" aria-label="Show password"><i data-lucide="eye"></i></button></div><p class="field-error" id="password-error"></p>
+      <div id="login-error" class="form-error" role="alert" hidden></div><button class="primary-button" type="submit">Sign in <i data-lucide="arrow-right"></i></button>
+    </form>
+  </section>
+  <aside class="auth-art" aria-hidden="true"><div><span class="art-icon"><i data-lucide="graduation-cap"></i></span><h2>Better insights.<br>Better attendance.</h2><p>A simple, reliable way to stay on top of every class.</p></div><small>© 2026 National University</small></aside>
+</div>

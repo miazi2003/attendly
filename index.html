@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="National University attendance management dashboard">
+  <meta name="attendly-api-base" content="http://localhost:4000">
+  <title>Attendly — Class Attendance</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,400..700&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="login-root"></div>
+  <div id="app-view" class="app" hidden>
+    <aside class="sidebar" id="sidebar">
+      <div class="brand"><img class="brand-logo" src="assets/attendly-logo.svg" alt=""><span>Attendly</span><button class="icon-button mobile-only" id="close-nav" aria-label="Close navigation"><i data-lucide="x"></i></button></div>
+      <nav aria-label="Main navigation">
+        <p class="nav-label">Overview</p>
+        <button class="nav-item active" data-page="dashboard"><i data-lucide="layout-dashboard"></i><span>Dashboard</span></button>
+        <p class="nav-label">Management</p>
+        <button class="nav-item" data-page="courses"><i data-lucide="book-open"></i><span>My Courses</span></button>
+        <button class="nav-item" data-page="attendance"><i data-lucide="clipboard-check"></i><span>Take Attendance</span></button>
+        <button class="nav-item" data-page="history"><i data-lucide="history"></i><span>History</span></button>
+        <button class="nav-item" data-page="students"><i data-lucide="users"></i><span>Students</span></button>
+        <button class="nav-item" data-page="reports"><i data-lucide="chart-no-axes-combined"></i><span>Reports</span></button>
+        <p class="nav-label">Account</p>
+        <button class="nav-item" data-page="profile"><i data-lucide="user-round"></i><span>Profile</span></button>
+      </nav>
+      <div class="sidebar-bottom"><button class="nav-item" id="logout-button"><i data-lucide="log-out"></i><span>Log out</span></button><p>Attendance System<br><span>Version 1.0</span></p></div>
+    </aside>
+    <div class="nav-backdrop" id="nav-backdrop"></div>
+    <div class="main-shell">
+      <header class="topbar"><button class="icon-button mobile-only" id="open-nav" aria-label="Open navigation"><i data-lucide="menu"></i></button><div class="breadcrumbs"><span id="breadcrumb-parent">Overview</span><i data-lucide="chevron-right"></i><strong id="breadcrumb-current">Dashboard</strong></div><div class="header-actions"><span class="icon-button notification" aria-hidden="true"><i data-lucide="bell"></i><span></span></span><div class="teacher"><span class="avatar">SR</span><div><strong id="teacher-name"></strong><small id="teacher-dept"></small></div><i data-lucide="chevron-down"></i></div></div></header>
+      <div id="page-root"></div>
+    </div>
+  </div>
+  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

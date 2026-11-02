@@ -1,0 +1,28 @@
+import cors from 'cors';
+import express from 'express';
+import helmet from 'helmet';
+import { env } from './config/env.js';
+import { errorHandler, notFound } from './middleware/error.js';
+import { authRouter } from './routes/auth.routes.js';
+import { courseRouter } from './routes/course.routes.js';
+import { semesterRouter } from './routes/semester.routes.js';
+import { studentRouter } from './routes/student.routes.js';
+import { teacherRouter } from './routes/teacher.routes.js';
+import { attendanceRouter } from './routes/attendance.routes.js';
+import { reportRouter } from './routes/report.routes.js';
+
+export const app = express();
+app.set('trust proxy', 1);
+app.use(helmet());
+app.use(cors({ origin(origin, callback) { callback(null, !origin || env.frontendOrigins.includes(origin)); }, credentials: true }));
+app.use(express.json({ limit: '16kb' }));
+app.get('/api/health', (_req, res) => res.json({ success: true, message: 'OK', data: { status: 'up' } }));
+app.use('/api/auth', authRouter);
+app.use('/api/students', studentRouter);
+app.use('/api/semesters', semesterRouter);
+app.use('/api/courses', courseRouter);
+app.use('/api/teachers', teacherRouter);
+app.use('/api/attendance', attendanceRouter);
+app.use('/api/reports', reportRouter);
+app.use(notFound);
+app.use(errorHandler);
