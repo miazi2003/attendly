@@ -5,6 +5,12 @@ import { env } from '../config/env.js';
 import { User } from '../models/User.js';
 import { authCookieOptions, clearAuthCookieOptions } from '../utils/cookies.js';
 import { HttpError, success } from '../utils/http.js';
+import {
+  CSRF_COOKIE_NAME,
+  csrfCookieOptions,
+  clearCsrfCookieOptions,
+  generateCsrfToken
+} from '../middleware/csrf.js';
 
 const loginSchema = z.object({ email: z.email().transform(value => value.toLowerCase()), password: z.string().min(1).max(200) }).strict();
 const publicUser = user => ({ id: user.id, name: user.name, email: user.email, role: user.role, department: user.department });
@@ -18,8 +24,10 @@ export async function login(req, res, next) {
     if (!valid) throw new HttpError(401, 'INVALID_CREDENTIALS', 'Incorrect email or password');
     if (!user.isActive) throw new HttpError(403, 'ACCOUNT_INACTIVE', 'This account is inactive');
     const token = jwt.sign({ role: user.role }, env.JWT_SECRET, { subject: user.id, expiresIn: env.JWT_EXPIRES_IN });
+    const csrfToken = generateCsrfToken();
     res.cookie(env.COOKIE_NAME, token, authCookieOptions());
-    success(res, { user: publicUser(user) }, 'Signed in successfully');
+    res.cookie(CSRF_COOKIE_NAME, csrfToken, csrfCookieOptions());
+    success(res, { user: publicUser(user), csrfToken }, 'Signed in successfully');
   } catch (error) { next(error); }
 }
 
@@ -27,5 +35,6 @@ export function me(req, res) { success(res, { user: publicUser(req.user) }); }
 
 export function logout(_req, res) {
   res.clearCookie(env.COOKIE_NAME, clearAuthCookieOptions());
+  res.clearCookie(CSRF_COOKIE_NAME, clearCsrfCookieOptions());
   success(res, null, 'Signed out successfully');
 }

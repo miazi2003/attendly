@@ -1,5 +1,5 @@
 import { store } from './state.js';
-import { api } from './api.js';
+import { api, clearCsrfToken } from './api.js';
 
 export function initAuth({onLogin,onLogout}) {
   const form=document.querySelector('#login-form'), email=form.email, password=form.password;
@@ -16,5 +16,5 @@ export function initAuth({onLogin,onLogout}) {
     finally { submit.disabled=false;submit.removeAttribute('aria-busy'); }
   });
   document.querySelector('#toggle-password').addEventListener('click',e=>{ const show=password.type==='password'; password.type=show?'text':'password'; e.currentTarget.setAttribute('aria-label',show?'Hide password':'Show password'); e.currentTarget.innerHTML=`<i data-lucide="${show?'eye-off':'eye'}"></i>`; window.lucide?.createIcons(); });
-  document.querySelector('#logout-button').addEventListener('click',async()=>{ try{await api('/api/auth/logout',{method:'POST'});}catch(error){console.warn('Server logout failed',error);}finally{store.logout();onLogout();} });
+  document.querySelector('#logout-button').addEventListener('click',async()=>{ try{await api('/api/auth/logout',{method:'POST'});}catch(error){console.warn('Server logout failed',error);}finally{clearCsrfToken();store.logout();onLogout();} });
 }

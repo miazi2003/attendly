@@ -1,2 +1,9 @@
 [build]
   publish = "."
+
+# SPA / Hash fallback: static files are served directly;
+# unrecognized non-asset routes fallback to index.html
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

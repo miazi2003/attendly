@@ -9,7 +9,8 @@
     "start": "node src/server.js",
     "seed": "node scripts/seed.js",
     "seed:attendance": "node scripts/seed-attendance.js",
-    "check": "node --check src/server.js && node --check src/app.js && node --check src/controllers/auth.controller.js && node --check src/controllers/student.controller.js && node --check src/controllers/semester.controller.js && node --check src/controllers/course.controller.js && node --check src/controllers/attendance.controller.js && node --check src/controllers/report.controller.js && node --check scripts/seed-attendance.js"
+    "check": "node --check src/server.js && node --check src/app.js && node --check src/middleware/csrf.js && node --check src/controllers/auth.controller.js && node --check src/controllers/student.controller.js && node --check src/controllers/semester.controller.js && node --check src/controllers/course.controller.js && node --check src/controllers/attendance.controller.js && node --check src/controllers/report.controller.js && node --check scripts/seed-attendance.js",
+    "test": "node --test test/**/*.test.js"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
